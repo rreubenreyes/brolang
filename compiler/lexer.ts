@@ -2,22 +2,37 @@
 /* Base Definition */
 /*******************/
 enum Species {
-    Keyword,
-    Literal,
-    Operator,
+    Keyword = '@@brolang_keyword',
+    Literal = '@@brolang_literal',
+    Operator ='@@brolang_operator'
 }
 
-type TokenPredicate = (expr: string) => boolean;
+type GrammarPredicate = (expr: string) => boolean;
 
 type Token = {
     readonly name: string;
     readonly species: Species;
-    readonly predicate: TokenPredicate;
+    readonly predicate: GrammarPredicate;
 }
 
-/* FIXME: This implementation depends on non-null assertions inside the factory. Find a better way */
-/* FIXME: How can I change this so that Factory<T> optionally returns T or an intersection with T? */
-type Factory<T> = (opts: Partial<T> & { [key: string]: any }) => T;
+function factory<S extends Species>(species: S) {
+    return function tokenFactory<T extends Token>(
+        args: Omit<T, 'species'> & { [key: string]: T[keyof T] }
+    ) {
+        const { name, predicate, ...etc } = args;
+
+        return {
+            species,
+            name,
+            predicate,
+            ...etc,
+        }
+    }
+}
+
+const Literal = factory(Species.Literal);
+const Keyword = factory(Species.Keyword);
+const Operator = factory(Species.Operator);
 
 /************/
 /* Literals */
@@ -25,12 +40,6 @@ type Factory<T> = (opts: Partial<T> & { [key: string]: any }) => T;
 type Literal = Token & {
     species: Species.Literal;
 }
-
-const Literal: Factory<Literal> = ({ name, predicate }) => ({
-    species: Species.Literal,
-    name: name!, // FIXME
-    predicate: predicate! // FIXME
-})
 
 const NUMBER = Literal({
     name: 'number',
@@ -48,12 +57,6 @@ const STRING = Literal({
 type Keyword = Token & {
     readonly species: Species.Keyword;
 }
-
-const Keyword: Factory<Keyword> = ({ name, predicate }) => ({
-    species: Species.Keyword,
-    name: name!, // FIXME
-    predicate: predicate!, // FIXME
-})
 
 const PROGRAM = Keyword({
     name: 'program',
@@ -106,16 +109,8 @@ type BoundingPair = {
     readonly closing: ClosingBound;
 }
 
-const Operator: Factory<Operator> = ({ name, predicate, ...etc }) => ({
-    species: Species.Operator,
-    name: name!, // FIXME
-    predicate: predicate!, // FIXME
-    ...etc,
-})
-
-/* FIXME: Optional intersection with Operator? See note in Factory */
-// const ARRAY_OPEN: OpeningBound = Operator({
-//     name: 'array_open',
-//     predicate: s => /\[/.test(s),
-//     delimiting: EnclosingBound.Opening,
-// });
+const ARRAY_OPEN: OpeningBound = Operator({
+    name: 'array_open',
+    predicate: s => /\[/.test(s),
+    delimiting: EnclosingBound.Opening
+});

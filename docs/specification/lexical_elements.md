@@ -26,9 +26,10 @@ The following character sequences are specially considered in Brolang but are no
 Keywords are case-insensitive. The following are keywords and cannot be used by identifiers:
 
 ```
-and     block       each       else
-for     if          not        of
-or      program     repeat     times
+and        as         block     each
+else       end        define    for
+if         not        of        or
+repeat     then       times     with
 ```
 
 ```
@@ -48,7 +49,7 @@ The following are operators and punctuation:
 -=     *=     /=     =     ==
 !=     <=     >=     <     >
 :      +      "      '     #
-(      )      [      ]
+(      )      [      ]     =>
 ```
 
 ### Literals
@@ -68,3 +69,7 @@ A floating-point literal is a decimal or hexadecimal representation of a floatin
 #### String literals
 
 A string literal is a string constant representing a literal sequence of characters, e.g. `"hello"`, `"a"`, `"2"`, `"The quick brown fox"`. A string may be delimited by the punctuation characters `'` or `"`, in which case the string may not contain newlines. A string may also be delimited by the character sequence `'''` or `"""`, in which case the string may span multiple lines and may contain any character.
+
+#### Boolean literals
+
+True and false.

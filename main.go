@@ -1,21 +1,26 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"os"
 
 	"github.com/rreubenreyes/brolang/internal/lexer"
 )
 
+var stderr = log.New(os.Stderr, "", 0)
+
 func main() {
-	fmt.Println("Hello Brolang")
+	if len(os.Args) < 2 {
+		stderr.Fatalln("Input file required")
+	}
 
-	keyword := lexer.Keyword("if")
-	identifier := lexer.Identifier("foo")
-	operator := lexer.Operator("+")
-	literal := lexer.Literal("2")
+	file := os.Args[1]
+	program, err := os.ReadFile(file)
 
-	fmt.Println(keyword)
-	fmt.Println(identifier)
-	fmt.Println(operator)
-	fmt.Println(literal)
+	if err != nil {
+		stderr.Fatalln("Error opening file")
+	}
+
+	l := lexer.New(program)
+	l.Lex()
 }

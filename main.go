@@ -9,7 +9,13 @@ import (
 func main() {
 	fmt.Println("Hello Brolang")
 
-	token := lexer.Token{kind: "test", value: "test"}
+	keyword := lexer.Keyword("if")
+	identifier := lexer.Identifier("foo")
+	operator := lexer.Operator("+")
+	literal := lexer.Literal("2")
 
-	fmt.Println("token")
+	fmt.Println(keyword)
+	fmt.Println(identifier)
+	fmt.Println(operator)
+	fmt.Println(literal)
 }

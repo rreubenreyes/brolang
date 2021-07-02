@@ -1,8 +1,8 @@
 # Brolang
 
-Brolang is a domain-specific language specialized towards generating and sharing strength training programs. This project is in its infancy; features will be documented as they are completed.
+Brolang is a domain-specific templating language specialized towards generating and sharing strength training programs. This project is in its infancy; features will be documented as they are completed.
 
-Brolang is implemented in [Go](https://golang.org/). Syntax is heavily influenced by [SQL](https://en.wikipedia.org/wiki/SQL) and Go.
+Brolang is implemented in [Go](https://golang.org/). Design is heavily influenced by [Jsonnet](https://jsonnet.org/). Syntax is heavily influenced by [SQL](https://en.wikipedia.org/wiki/SQL) and Go.
 
 ## Design goals
 

@@ -27,9 +27,9 @@ Keywords are case-insensitive. The following are keywords and cannot be used by 
 
 ```
 and        as         block     each
-else       end        define    for
-if         not        of        or
-repeat     then       times     with
+else       define     for       if
+not        of         or        repeat
+then       times     with
 ```
 
 ```

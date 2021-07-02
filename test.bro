@@ -48,7 +48,6 @@ WeekOne = repeat
     BackSquats(Sets: 5, Reps: 5, StartingWeight: StartingWeight)
   else
     FrontSquats(Sets: 5, Reps: 5, StartingWeight: StartingWeight)
-  end
 for _, Day of ProgramDays
 
 # The body of the program.
